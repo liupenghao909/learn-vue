@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="first">
+        <!--双向绑定，将文本框中输入的值和vue对象中的key num绑定在一起，文本框中的值变会引起vue对象中的num变，num变也会影响其文本框中的值-->
+        <input type="text" v-model="num">
+        <!-- 事件处理，将点击事件和num值++绑定在一起 -->
+        <button v-on:click="num++">通缉</button>
+        <!-- 也可以绑定vm中的方法函数 -->
+        <button v-on:click="cancel">取消</button>
+        <!-- name为创建Vue对象时传入的对象的属性data中的key，根据key将其对象的value值填入其中 -->
+        <h1> 法外狂徒，{{name}} ,有{{num}}个人正在抓捕他。</h1>   
+    </div>
+
+    <!-- 引入Vue.js -->
+    <script src="./node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        // 1）vue声明式渲染
+        // 创建一个Vue对象,new的时候传入一个对象
+        let vm = new Vue({
+            el: "#first",    // el 属性指定Vue管控哪个元素，# 为id选择器，指定要被管控的元素的id
+            data: {   // data封装数据，data中可以有多组key:value值
+                name: "张三",
+                num: 1
+            },
+            methods:{    // 封装方法
+                // 取消函数
+                cancel(){
+                    this.num--;
+                }
+            }
+        }); 
+
+        /* 
+        2）双向绑定：v-model
+            模型变化，视图变化；视图变化，模型中对应的属性值也变化
+            
+            在id="first"的div中有实例
+        */
+        
+        /*
+        3）事件处理
+            v-on:xxx 绑定事件
+
+            在id="first"的div中有实例
+        */
+
+        /*
+        Vue的使用
+            使用指令：v-xx 
+            
+            1）创建Vue实例，关联页面的模板，将自己的数据（data）渲染到关联的模板，响应式的
+            2）指令来简化对dom的一些操作
+            3）声明方法来做更复杂的操作。methods里面可以封装方法
+        */
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+    1、插值表达式---只能写在标签体中
+        格式：{{表达式}}   花括号
+        说明：
+            该表达式支持JS语法，可以调用js内置函数（必须有返回值）
+            表达式必须有返回结果。例如 1+1，没有结果的表达式不允许使用，如let a = 1 + 1
+            可以直接获取Vue实例中定义的数据或函数
+        
+            {{}}存在插值闪烁
+                使用{{}}方式在网速较慢时会出现问题。在数据未加载完成时，页面会显示出原始的`{{表达式}}`，
+                加载完毕后才显示正确数据，我们称为插值闪烁
+     -->
+    <div id="app">
+        <!-- 插值表达式的使用 -->
+        {{msg}} {{1+1}} {{hello()}}<br/>
+        <!-- span用来组合文档中的行内元素 -->
+        <span v-html="msg"></span>
+        <br/>
+        <span v-text="msg"></span>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                msg: "<h1>Hello,Vue2</h1>"
+            },
+            methods: {
+                hello() {
+                    return "World";
+                }
+            },
+        });
+    </script>
+</body>
+</html>

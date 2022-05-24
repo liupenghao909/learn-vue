@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- div可定义文档中的分区或节 -->
+    <div id="app">
+        <!-- <ul>定义无序列表 -->
+        <ul>
+            <!-- <li>标签定义列表项目 -->
+            <li v-for="(user,index) in users" :key="user.name">
+                <!-- 1、显示user信息：v-for="item in items" -->
+                当前索引为:{{index}} ==> {{user.name}} ==> {{user.gender}} ==> {{user.age}}
+                <!-- 2、获取数组下标：v-for="(item,index) in items" -->
+                <!-- 3、遍历对象：
+                    v-for="value in object"
+                    v-for="(value,key) in object"    // 依次取出对象中的key value键值对
+                    v-for="(value,key,index) in object" 
+                -->
+                <br/>
+                当前对象为：
+                <span v-for="(v,k,i) in user">{{i}} ==> {{k}} ==> {{v}},</span>
+                <br/>
+                <!-- 4、遍历的时候都加上：key来区分不同数据，提高vue渲染效率 -->
+            </li>
+        </ul>
+
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                users:[
+                    {name:'关羽',gender: '男',age:20 },
+                    {name:'刘备',gender: '男',age: 21},
+                    {name:'张飞',gender: '男',age: 22},
+                    {name:'貂蝉',gender: '女',age: 18},
+                    {name:'贾玲',gender: '女',age: 22}
+                ]
+            },
+            methods: {
+                methodName() {
+                    
+                },
+            },
+        });
+    </script>
+</body>
+</html>
