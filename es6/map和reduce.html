@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--******************************************map和reduce 方法**************************************************-->
+    <script>
+        // 数组中新增了map和reduce方法
+        // map()：接收一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回
+        let arr = ['1','20','-5','3'];
+        // 使用map将字符数组中的每一个字符转换为数字，然后 ×2 返回
+        // map中要接收一个函数，可以使用箭头函数
+        // arr = arr.map((item) =>{   //item为函数参数，也是字符数组中的单个值
+        //     return item*2;   // 注意：此处包含一个默认的类型转换，将字符类型转换为数字
+        // });
+        // 因为只有一个参数，且函数体中只有一个return语句，可以进一步简写
+        arr = arr.map(item => item*2);
+
+        console.log(arr);   //  [2, 40, -10, 6]
+
+        // reduce()：为数组中的每一个元素依次执行回调函数，不包括数组中被删除或从未被赋值的元素
+        /*
+            arr.reduce(callback,[initialValue])
+            reduce接收四个参数：初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用reduce的数组
+
+            callback(执行数组中每个值的函数，包含四个参数)
+                1）previousValue（上一次调用回调函数返回的值，或者是提供的初始值(initialValue)）
+                2）currentValue（数组中当前被处理的元素）
+                3）index（当前元素在数组中的索引）
+                4）array（调用reduce的数组）
+            initialValue（作为第一次调用callback的第一个参数）
+        */
+        let result = arr.reduce((a,b) => {
+            console.log("上一次处理后："+ a);
+            console.log("当前正在处理："+ b);
+            return a+b;
+        })
+        console.log(result);
+        // 代初始值的情况
+        let result1 = arr.reduce((a,b) => {
+            console.log("上一次处理后："+ a);
+            console.log("当前正在处理："+ b);
+            return a+b;
+        },100);
+        console.log(result1);
+
+    </script>
+</body>
+</html>

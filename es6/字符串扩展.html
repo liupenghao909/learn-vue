@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--******************************************字符串扩展**************************************************-->
+    <script>
+        // *******************************几个新的API*********************************
+        // let str = "hello.vue";
+        // // 判断字符串是否以“hello”开头
+        // const b1 = str.startsWith("hello");  //true
+        // // 判断字符串是否以“.vue”结尾
+        // const b2 = str.endsWith(".vue");  //true
+        // // 判断字符串是否包含“e”字符
+        // const b3 = str.includes("e");   //true
+        // // 判断字符串是否包含“hello”字符串
+        // const b4 = str.includes("hello");   //true
+
+        // // 打印
+        // console.log(b1,b2,b3,b4);
+
+        // ******************************字符串模板*********************************
+        /*
+            模板字符串相当于加强版的字符串，用反引号 ` ，除了作为普通字符串，还可以用来定义多行字符串，
+            还可以在字符串中加入变量和表达式
+        */
+       // 1）多行字符串
+       let ss = `
+                <div>
+                    <span>hello world</span>
+                </div>
+                `;
+        console.log(ss);
+
+        // 2）字符串中插入变量和表达式。变量名卸载 ${} 中，${} 中可以放入JavaScript表达式
+        let name = "LiMing";
+        let age = 18;
+        let info = `我是${name},今年${age}岁，两年后${age+2}岁。`;
+
+        console.log(info);  // 我是LiMing,今年18岁，两年后20岁。
+
+        // 3）字符串中调用函数
+        function fun(){
+            return "这是一个函数";
+        }
+
+        let sss = `哇哈哈哈(*^_^*)，${fun()}`;
+        console.log(sss);
+    </script>
+</body>
+</html>

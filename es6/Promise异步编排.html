@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <!--******************************************promise异步编排**************************************************-->
+    <!--
+        在JavaScript的世界中，所有代码都是单线程执行的。由于这个“缺陷”，导致 JavaScript的所有网络操作，浏览器事件，
+        都必须是异步执行。异步执行可以用回调函数实现。一旦有一连串的 ajax 请求a,b,c,d... 后面的请求依赖前面的
+        请求结果，就需要层层嵌套。这种缩进和层层嵌套的方式，非常容易造成上下文代码混乱，我们不得不非常小心翼翼处理内层函数与外层函数数据，
+        一旦内层函数使用了上层函数的变量，这种混乱程度就会加剧......总之，这种`层叠上下文`的层层嵌套方式，着实增加了神经的紧张程度
+
+    -->
+    <script>
+        /* 
+        实现以下操作
+            1、查出当前用户信息
+            2、按照当前用户的id查出他的课程
+            3、按照当前课程id查出分数
+        */
+        // 使用传统的ajax嵌套
+        // $.ajax({
+        //     url: "mock/user.json",
+        //     success(data){
+        //         console.log("查询用户：",data);   // 查询用户： {id: 1, name: 'LiMing', password: '123456'}
+        //         $.ajax({
+        //             url: `mock/user_course_${data.id}.json`,
+        //             success(data){
+        //                 console.log("查询到课程：",data);  // 查询到课程： {id: 10, name: 'Java'}
+        //                 $.ajax({
+        //                     url: `mock/course_score_${data.id}.json`,
+        //                     success(data){
+        //                         console.log("查询到成绩：",data);  // 查询到成绩： {id: 100, score: 90}
+        //                     },
+        //                     error(error){
+        //                         console.log("发生了错误：",error);
+        //                     }
+        //                 })
+        //             },
+        //             error(error){
+        //                 console.log("发生了错误：",error);
+        //             }
+        //         });
+        //     },
+        //     error(error){
+        //         console.log("发生了错误：",error);
+        //     }
+        // })
+
+        // 1、Promise可以封装异步操作
+        let p = new Promise((resolve,reject) => {   // resolve表示成功时进行操作，reject表示失败时进行操作
+            // 异步操作
+            $.ajax({
+                url: "mock/user.json",
+                success(data){
+                    console.log("查询用户成功：",data);  // 查询用户成功： {id: 1, name: 'LiMing', password: '123456'}
+                    resolve(data);  // 成功时向下传递
+                },
+                error(err){
+                    reject(err);
+                }
+            });
+        });
+        // 形参obj接收Promise对象的resolve函数中传入的参数
+        p.then((obj) => {
+            return new Promise((resolve,reject) => {
+                $.ajax({
+                    url: `mock/user_course_${obj.id}.json`,
+                    success(data){
+                        console.log("查询用户课程成功：",data);  // 查询用户课程成功： {id: 10, name: 'Java'}
+                        resolve(data);  // 成功时向下传递
+                    },
+                    error(err){
+                        reject(err);   // 失败也继续往下传递
+                    }
+                });
+            });
+        }).then((obj) => {
+            $.ajax({
+                url: `mock/course_score_${obj.id}.json`,
+                success(data){
+                    console.log("查询课程成绩成功：",data);  // 查询课程成绩成功： {id: 100, score: 90}
+                },
+                error(err){
+                    console.log("发生了错误：",err);
+                }
+            })
+        }).catch((error) => {
+            console.log("发生了错误：",error);
+        });
+
+        // 对上述操作进行抽取简化
+        function get(url){   // 根据url发送请求
+            return new Promise((resolve,reject) => {
+                $.ajax({
+                    url: url,
+                    success(data){
+                        resolve(data);
+                    },
+                    error(err){
+                        reject(err);
+                    }
+                });
+            })
+        }
+
+        get("mock/user.json")
+            .then((obj) => {
+                console.log("查询用户成功~~~~~~：",obj);
+                return get(`mock/user_course_${obj.id}.json`);
+            })
+            .then((obj) => {
+                console.log("查询用户课程成功~~~~~~：",obj);
+                return get(`mock/course_score_${obj.id}.json`)
+            })
+            .then((obj) => {
+                console.log("查询课程成绩成功~~~~~~：",obj);
+            })
+            .catch((err) => {
+                console.log("发生了错误~~~~~~：",err);
+            });
+
+
+    </script>
+</body>
+</html>

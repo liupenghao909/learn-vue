@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        //<!-- ***********************************let声明变量***************************************** -->
+        
+        // // var 声明的变量往往会越域
+        // // let 声明的变量有严格局部作用域
+        // {
+        //     var a = 1;
+        //     let b = 2;
+        // }
+        // console.log(a);   // 1
+        // console.log(b);  //  Uncaught ReferenceError: b is not defined
+
+        // // var 可以声明多次
+        // // let 只能声明一次
+        // var m = 1;
+        // var m = 2;
+        // let n = 3;
+        // // let n = 4;
+        // console.log(m) // 2
+        // console.log(n) //  Uncaught SyntaxError: Identifier 'n' has already been declared
+
+        // // var 会变量提升
+        // // let 不存在变量提升
+        // console.log(x)   // undefined
+        // var x = 10; 
+        // console.log(y);  // Uncaught ReferenceError: Cannot access 'y' before initialization
+        // let y = 20;
+
+        // 故一般使用let声明变量
+
+        //<!-- ***********************************const声明常量（只读变量）***************************************** -->
+        // 1、声明之后不允许改变
+        // 2、一旦声明必须初始化，否则会报错
+        const a = 1;
+        a = 3;   //Uncaught TypeError: Assignment to constant variable.
+
+        /*
+            let和const为开发过程中常用的关键字
+        */
+    </script>
+
+</body>
+</html>

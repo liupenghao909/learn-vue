@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--******************************************解构表达式**************************************************-->
+    <script>
+        // *******************************数组解构*********************************
+        // let arr = [1,2,3];
+        // //以前我们想获取其中的值，只能使用角标
+        // let a = arr[0];
+        // let b = arr[1];
+        // let c = arr[2];
+
+        // console.log(a,b,c);
+
+        // // ES6使用数组解析表达式
+        // // x y z 将与arr中的每个位置对应来取值
+        // const [x,y,z] = arr;
+        // console.log(x,y,z);
+        // // 或者用let也行
+        // let [xx,yy,zz]=arr;
+        // console.log(xx,yy,zz);
+
+
+        // *******************************对象解构*********************************
+        const person = {
+            name: "LiMing",
+            age: 18,
+            languages: ['java','MySQL','C']
+        }
+        // // 以前我们想要获取每个属性值，使用对象名.属性名
+        // const name = person.name;
+        // const age = person.age;
+        // const languages = person.language;
+        // // 打印
+        // console.log(name,age,languages);
+
+        // // ES6可以使用对象解构快速获取每个属性的值  注意：变量名和属性名必须一样
+        // const {name,age,languages} = person;   
+        // // 打印
+        // console.log(name,age,languages);
+
+        // 拓展：如果想要将name的值赋值给其他变量，可以如下
+        const {name: segment,age,languages} = person
+        // 打印
+        console.log(segment,age,languages);
+
+    </script>
+</body>
+</html>
